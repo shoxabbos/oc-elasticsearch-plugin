@@ -1,5 +1,6 @@
 <?php namespace Shohabbos\Elasticsearch\Console;
 
+use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,28 +18,50 @@ class ReindexCommand extends Command
      */
     protected $description = 'Does reindex tables.';
 
+    /** @var \Elasticsearch\Client */
+    private $elasticsearch;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->elasticsearch = \App::make(Client::class);
+    }
+
     /**
      * Execute the console command.
      * @return void
      */
     public function handle()
     {
-        $this->info('Indexing all articles. This might take a while...');
+        $this->info('Indexing all items. This might take a while...');
 
-        $
+        $index = Index::find($this->option('index'));
 
-
-        foreach (Article::cursor() as $article)
-        {
-            $this->elasticsearch->index([
-                'index' => $article->getSearchIndex(),
-                'type' => $article->getSearchType(),
-                'id' => $article->getKey(),
-                'body' => $article->toSearchArray(),
-            ]);
-            $this->output->write('.');
+        if (!$index) {
+            $this->error('Index not found!');
+            return;
         }
-        $this->info('\nDone!');
+
+        foreach ($index->model::cursor() as $item)
+        {
+            
+            $this->elasticsearch->index([
+                'index' => $item->getSearchIndex(),
+                'type' => $item->getSearchType(),
+                'id' => $item->getKey(),
+                'body' => $item->toSearchArray(),
+            ]);
+
+            $this->output->write(".");
+        }
+
+
+        $this->info('Done!');
 
     }
 
@@ -48,9 +71,7 @@ class ReindexCommand extends Command
      */
     protected function getArguments()
     {
-        return [
-            ['index', InputArgument::REQUIRED, 'Index number.'],
-        ];
+        return [];
     }
 
     /**
@@ -59,7 +80,9 @@ class ReindexCommand extends Command
      */
     protected function getOptions()
     {
-        return [];
+        return [
+            ['index', null, InputOption::VALUE_REQUIRED, 'Index number.', null],
+        ];
     }
 
 }
