@@ -8,10 +8,6 @@ columns:
         type: text
         searchable: true
         sortable: true
-    table_name:
-        label: table
-        type: text
-        searchable: true
     created_at:
         label: created_at
         type: datetime

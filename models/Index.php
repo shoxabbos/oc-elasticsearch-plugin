@@ -1,7 +1,7 @@
 <?php namespace Shohabbos\Elasticsearch\Models;
 
 use Model;
-
+use Schema;
 /**
  * Model
  */
@@ -27,4 +27,17 @@ class Index extends Model
         return [];
     }
     
+    public function getKeyOptions() {
+        $object = new $this->model;
+
+        if ($object) {
+            return Schema::getColumnListing($object->getTable());    
+        }
+
+        return [];
+    }
+
+    public function beforeSave() {
+        $object = new $this->model;
+    }
 }

@@ -1,9 +1,4 @@
 fields:
-    table_name:
-        label: Table
-        span: auto
-        required: 1
-        type: text
     model:
         label: 'Model namespace'
         span: auto
@@ -15,20 +10,43 @@ fields:
         span: auto
         readOnly: 0
         hidden: 0
+        context:
+            - update
+            - preview
         type: repeater
         form:
             fields:
                 key:
-                    label: Key
+                    label: Field
+                    showSearch: true
                     span: auto
                     required: 1
-                    type: text
+                    type: dropdown
                 value:
                     label: Value
                     options:
-                        integer: Integer
-                        string: String
-                        text: Text
+                        text: 'Text - string'
+                        keyword: 'Keyword - string'
+                        integer: 'Integer - numeric'
+                        date: Date
+                        boolean: Boolean
+                        object: Object
+                        long: 'Long - numeric'
+                        short: 'Short - numeric'
+                        byte: 'Byte - numeric'
+                        double: 'Double - numeric'
+                        float: 'Float - numeric'
+                        half_float: 'Half_float - numeric'
+                        scaled_float: 'Scaled_float - numeric'
+                        date_nanos: 'Date nanos'
+                        binary: Binary
+                        integer_range: 'Integer_range - Range'
+                        float_range: 'Float_range - Range'
+                        long_range: 'Long_range - Range'
+                        double_range: 'Double_range - Range'
+                        date_range: 'Date_range - Range'
+                        ip_range: 'Ip_range - Range'
+                        nested: 'Nested - object'
                     showSearch: true
                     span: auto
                     required: 1

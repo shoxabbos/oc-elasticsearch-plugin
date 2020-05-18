@@ -11,9 +11,8 @@ class BuilderTableCreateShohabbosElasticsearchIndexes extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
-            $table->string('model');
-            $table->text('fields');
-            $table->string('table_name');
+            $table->string('model')->unique();
+            $table->text('fields')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
