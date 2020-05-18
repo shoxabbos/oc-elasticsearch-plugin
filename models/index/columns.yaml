@@ -16,3 +16,7 @@ columns:
         label: updated_at
         type: datetime
         sortable: true
+    actions:
+        label: Actions
+        type: partial
+        clickable: false

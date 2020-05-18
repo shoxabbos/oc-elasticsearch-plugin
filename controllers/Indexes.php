@@ -2,6 +2,7 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Artisan;
 
 class Indexes extends Controller
 {
@@ -22,4 +23,11 @@ class Indexes extends Controller
         parent::__construct();
         BackendMenu::setContext('Shohabbos.Elasticsearch', 'elasticsearch-menu', 'elasticsearch-menu-indexes');
     }
+
+    public function onReindex ()
+    {
+        Artisan::call('shohabbos:reindex', ['--index' => input('id')]);
+    }
+
+
 }

@@ -1,5 +1,7 @@
 <?php namespace Shohabbos\Elasticsearch\Console;
 
+use App;
+use Flash;
 use Elasticsearch\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -47,6 +49,14 @@ class ReindexCommand extends Command
             return;
         }
 
+        $model = App::make($index->model); 
+
+        if (!method_exists($model, 'getSearchIndex') || !method_exists($model, 'getSearchType')) {
+            Flash::error('You forgot use **Searchable** trait for this class');
+            return;
+        }
+
+
         foreach ($index->model::cursor() as $item)
         {
             $this->elasticsearch->index([
@@ -60,8 +70,8 @@ class ReindexCommand extends Command
         }
 
 
+        Flash::info('Done!');
         $this->info('Done!');
-
     }
 
     /**
