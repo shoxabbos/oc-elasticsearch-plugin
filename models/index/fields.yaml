@@ -1,0 +1,35 @@
+fields:
+    table_name:
+        label: Table
+        span: auto
+        required: 1
+        type: text
+    model:
+        label: 'Model namespace'
+        span: auto
+        required: 1
+        type: text
+    fields:
+        label: Fields
+        prompt: 'Add new item'
+        span: auto
+        readOnly: 0
+        hidden: 0
+        type: repeater
+        form:
+            fields:
+                key:
+                    label: Key
+                    span: auto
+                    required: 1
+                    type: text
+                value:
+                    label: Value
+                    options:
+                        integer: Integer
+                        string: String
+                        text: Text
+                    showSearch: true
+                    span: auto
+                    required: 1
+                    type: dropdown

@@ -1,0 +1,10 @@
+name: Indexes
+form: $/shohabbos/elasticsearch/models/index/fields.yaml
+modelClass: Shohabbos\Elasticsearch\Models\Index
+defaultRedirect: shohabbos/elasticsearch/indexes
+create:
+    redirect: 'shohabbos/elasticsearch/indexes/update/:id'
+    redirectClose: shohabbos/elasticsearch/indexes
+update:
+    redirect: shohabbos/elasticsearch/indexes
+    redirectClose: shohabbos/elasticsearch/indexes

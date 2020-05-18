@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: id
+        type: number
+        sortable: true
+    model:
+        label: model
+        type: text
+        searchable: true
+        sortable: true
+    table_name:
+        label: table
+        type: text
+        searchable: true
+    created_at:
+        label: created_at
+        type: datetime
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        sortable: true

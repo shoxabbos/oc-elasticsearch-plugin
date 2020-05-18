@@ -1,0 +1,18 @@
+{
+    "name": "shohabbos/oc-elasticsearch-plugin",
+    "type": "october-plugin",
+    "description": "Elasticsearch plugin for octobercms",
+    "keywords": ["october", "cms", "elasticsearch", "plugin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shohabbos Olimjonov",
+            "email": "19941001@inbox.ru"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.8",
+        "composer/installers": "~1.0",
+        "elasticsearch/elasticsearch": "*"
+    }
+}

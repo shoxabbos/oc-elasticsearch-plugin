@@ -1,0 +1,12 @@
+list: $/shohabbos/elasticsearch/models/index/columns.yaml
+modelClass: Shohabbos\Elasticsearch\Models\Index
+title: Indexes
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'shohabbos/elasticsearch/indexes/update/:id'
