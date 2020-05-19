@@ -2,8 +2,23 @@
 
 ## 1 step: Use searchable trait
 ```
-class ExampleModel {
-	use \Shohabbos\Elasticsearch\Classes\Searchable;
+class Post
+{
+    public $implement = ['Shohabbos.Elasticsearch.Classess.Searchable'];
+
+    // optional
+    // public $useSearchIndex = 'index';
+
+    // optional
+    // public $useSearchType = 'type';
+
+    // optional
+    // You can specify the fields to be indexed.
+    // public function toSearchArray() {
+    //      return [
+    //            'title' => $this->title
+    //      ];
+    // }
 }
 ```
 

@@ -1,58 +1,84 @@
 <?php namespace Shohabbos\Elasticsearch\Classes;
 
+use App;
+use Elasticsearch\Client;
 use Shohabbos\Elasticsearch\Models\Index;
 
-trait Searchable
-{
+class Searchable extends \October\Rain\Extension\ExtensionBase
+{   
     public $elasticrawdata;
     public $indexInfo;
+    protected $parent;
 
-    // Add observable class 
-    public static function bootSearchable()
+    /** @var \Elasticsearch\Client */
+    private $es;
+
+    public function __construct($parent)
     {
-        static::observe(ElasticsearchObserver::class);
+        $this->parent = $parent;
+        $this->es = App::make(Client::class);
+
+        $this->parent->bindEvent('model.afterSave', function() {
+            $this->es->index([
+                'index' => $this->parent->getSearchIndex(),
+                'type' => $this->parent->getSearchType(),
+                'id' => $this->parent->getKey(),
+                'body' => $this->parent->toSearchArray(),
+            ]);
+        });
+
+        $this->parent->bindEvent('model.afterDelete', function() {
+            $this->es->delete([
+                'index' => $this->parent->getSearchIndex(),
+                'type' => $this->parent->getSearchType(),
+                'id' => $this->parent->getKey(),
+            ]);
+        });
     }
 
     public function getSearchIndex()
     {
-        return $this->getTable();
+        if (property_exists($this->parent, 'useSearchIndex')) {
+            return $this->parent->useSearchIndex;
+        }
+
+        return $this->parent->getTable();
     }
 
     public function getSearchType()
     {
-        if (property_exists($this, 'useSearchType')) {
-            return $this->useSearchType;
+        if (property_exists($this->parent, 'useSearchType')) {
+            return $this->parent->useSearchType;
         }
 
-        return $this->getTable();
+        return $this->parent->getTable();
     }
 
     public function toSearchArray()
     {
-        $this->indexInfo = Index::where('model', self::class)->first();
+        $this->parent->indexInfo = Index::where('model', $this->parent->class)->first();
 
-        if (method_exists($this, 'useSearchArrayData')) {
-            return $this->useSearchArrayData();
+        if (method_exists($this->parent, 'useSearchArrayData')) {
+            return $this->parent->useSearchArrayData();
         }
 
-        if (isset($this->indexInfo) && is_array($this->indexInfo->fields)) {
+        if (isset($this->parent->indexInfo) && is_array($this->parent->indexInfo->fields)) {
             $data = [];
 
-            foreach ($this->indexInfo->fields as $value) {
-                if (isset($this->{$value['key']})) {
-                    $data[$value['key']] = $this->{$value['key']};
+            foreach ($this->parent->indexInfo->fields as $value) {
+                if (isset($this->parent->{$value['key']})) {
+                    $data[$value['key']] = $this->parent->{$value['key']};
                 }
             }
 
             return $data;
         }
 
-        return $this->toArray();
+        return $this->parent->toArray();
     }
 
-    // model::elasticsearch()->find($id);
-    public static function elasticsearch() {
-        return new ElasticsearchRepository(new self);
+    public function scopeElasticsearch($query) {
+        return new ElasticsearchRepository($this->parent);
     }
     
 }

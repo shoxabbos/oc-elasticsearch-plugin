@@ -51,7 +51,7 @@ class ReindexCommand extends Command
 
         $model = App::make($index->model); 
 
-        if (!method_exists($model, 'getSearchIndex') || !method_exists($model, 'getSearchType')) {
+        if (!$model->methodExists('getSearchIndex') || !$model->methodExists('getSearchType')) {
             Flash::error('You forgot use **Searchable** trait for this class');
             return;
         }
