@@ -1,0 +1,18 @@
+fields:
+    fields:
+        label: Hosts
+        prompt: 'Add new host'
+        span: auto
+        type: repeater
+        form:
+            fields:
+                host:
+                    label: Host
+                    span: auto
+                    required: 1
+                    default: localhost
+                port:
+                    label: Port
+                    span: auto
+                    required: 1
+                    default: 9200

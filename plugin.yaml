@@ -8,17 +8,6 @@ permissions:
     manage_indexes:
         tab: 'Elastic search'
         label: 'Manage indexes'
-navigation:
-    elasticsearch-menu:
-        label: 'Elastic search'
-        url: shohabbos/elasticsearch/indexes
-        icon: icon-search
-        permissions:
-            - manage_indexes
-        sideMenu:
-            elasticsearch-menu-indexes:
-                label: indexes
-                url: shohabbos/elasticsearch/indexes
-                icon: icon-list-alt
-                permissions:
-                    - manage_indexes
+    manage_settings:
+        tab: 'Elastic search'
+        label: 'Manage settings'

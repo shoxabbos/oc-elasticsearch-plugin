@@ -3,6 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 use Artisan;
+use System\Classes\SettingsManager;
 
 class Indexes extends Controller
 {
@@ -21,7 +22,8 @@ class Indexes extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Shohabbos.Elasticsearch', 'elasticsearch-menu', 'elasticsearch-menu-indexes');
+        BackendMenu::setContext('October.System', 'system', 'indexes');
+        SettingsManager::setContext('Shohabbos.Payeer', 'indexes');
     }
 
     public function onReindex ()
