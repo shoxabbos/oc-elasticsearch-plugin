@@ -26,7 +26,7 @@ class Plugin extends PluginBase
                 'keywords'    => 'elasticsearch search',
                 'permissions' => ['shohabbos.elasticsearch.manage_settings']
             ],
-            'indexes' => [
+            'settings-indexes' => [
                 'label'       => 'Elasticsearch indexes',
                 'description' => 'Manage available indexes, create new indexex, reindex avaiable data.',
                 'category'    => 'Elasticsearch',
