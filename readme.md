@@ -4,7 +4,7 @@
 ```
 class Post
 {
-    public $implement = ['Shohabbos.Elasticsearch.Classess.Searchable'];
+    public $implement = ['Shohabbos.Elasticsearch.Classes.Searchable'];
 
     // optional
     // public $useSearchIndex = 'index';
